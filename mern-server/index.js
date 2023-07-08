@@ -8,8 +8,6 @@ const {postRoutes}= require("./routes/posts.js")
 
 app.use("/posts", postRoutes);
 
-const connectionString="mongodb+srv://sravan:sravan@cluster0.6lczp0p.mongodb.net/?retryWrites=true&w=majority"
-
 app.get('/', (req, res) => {
     res.send('Express App works');
 })
