@@ -39,18 +39,20 @@ export default makeStyles({
   details: {
     display: 'flex',
     justifyContent: 'space-between',
-    margin: '20px',
+    margin: '8px 16px',
+    flexDirection: 'column'
   },
   title: {
     padding: '0 16px',
+  },
+  cardActionsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   cardActions: {
     padding: '0 16px 8px 16px',
     display: 'flex',
     justifyContent: 'space-between',
-  },
-  cardAction: {
-    display: 'block',
-    textAlign: 'initial',
   },
 });
