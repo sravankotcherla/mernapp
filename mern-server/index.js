@@ -9,6 +9,7 @@ const connectionString = process.env.DB_STRING;
 
 const { postRoutes } = require("./routes/posts.js")
 
+app.use(express.json());
 app.use(cors());
 app.use("/posts", postRoutes);
 
