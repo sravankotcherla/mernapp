@@ -4,10 +4,18 @@ import memories from "./images/memories.png"
 import Posts from './components/Posts/posts'
 import Form from './components/Form/form'
 import useStyles from './styles'
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import {fetchAllPosts} from './redux/actions/posts'
 
 
 const App = () => {
+    const dispatch = useDispatch();
     const classes = useStyles();
+
+    useEffect(() => {
+        dispatch(fetchAllPosts());
+    })
 
     return (
         <Container maxWidth="lg" >

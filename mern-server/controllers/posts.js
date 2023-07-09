@@ -3,6 +3,7 @@ const PostModel= require("../models/posts.js")
 exports.getPosts = async(req, res) => {
     try {
         const resp = await PostModel.find({});
+        console.log(resp)
         res.status(200).jsonp(resp);
     } catch (e) {
         console.log(e)
