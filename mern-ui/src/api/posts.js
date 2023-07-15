@@ -17,3 +17,11 @@ export const getPost = async (postId) => {
 export const updatePost = async (postId, postData) => {
     return axios.patch(`${url}/${postId}`, postData)
 }
+
+export const deletePostById = async (postId) => {
+    return axios.delete(`${url}/${postId}`);
+}
+
+export const likePostById = async (postId) => {
+    return axios.patch(`${url}/${postId}/likePost`);
+}

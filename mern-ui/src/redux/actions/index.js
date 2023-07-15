@@ -1,4 +1,4 @@
-import {getPosts, createPost as createThePost, getPost, updatePost as _updatePost} from "../../api/posts";
+import {getPosts, createPost as createThePost, getPost, updatePost as _updatePost, deletePostById, likePostById} from "../../api/posts";
 
 
 //Action Creator
@@ -39,6 +39,24 @@ export const updatePost = (postId,postData) => async (dispatch) => {
     try {
         const { data } = await _updatePost(postId, postData);
         return dispatch({type: 'UPDATE', data: data})
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const deletePost = (postId) => async (dispatch)=>{
+    try {
+        const { data } = await deletePostById(postId);
+        return dispatch({ type: 'DELETE', data: data });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const likePost = (postId) => async (dispatch) => {
+    try {
+        const { data } = await likePostById(postId);
+        return dispatch({type:'UPDATE', data: data})
     } catch (e) {
         console.log(e);
     }

@@ -11,7 +11,7 @@ const emptyPostData={
     creator: "",
     message: "",
     title: "",
-    tags: "",
+    tags:[],
     selectedFile: "",
   }
 
@@ -54,6 +54,7 @@ const Form = (props) => {
       setPostData(emptyPostData)
   };
     
+  console.log(postData, 'inside form');
   return (
     <Paper className={`${classes.root} ${classes.paper}`}>
       <form
@@ -92,8 +93,11 @@ const Form = (props) => {
           name="tags"
           variant="outlined"
           label="Tags"
-          value={postData.tags}
-          onChange={(e) => setPostData({ ...postData, tags: [e.target.value] })}
+          value={postData.tags.reduce((accum,curr)=>{return accum === '' ? accum+curr :( accum+','+curr)}, '')}
+          onChange={(e) => {
+            debugger;
+            setPostData({ ...postData, tags: e.target.value.split(',') })
+          }}
         />
         <div className={classes.fileInput}>
           <FileBase

@@ -52,3 +52,32 @@ exports.fetchPostById = async (req, res) => {
         }
     }
 }
+
+exports.deletePostById = async (req, res) => {
+    const { id:postId } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(postId)) {
+        return res.status(400).send("Invalid post object id");
+    } else {
+        try {
+            const resp = await PostModel.findByIdAndDelete(postId);
+            return res.status(200).send(resp);
+        } catch (e) {
+            res.send(e);
+        }
+    }
+}
+
+exports.likePost = async (req, res) => {
+    const { id: postId } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(postId)) {
+        return res.status(400).send("Invalid post object id");
+    } else {
+        try {
+            const post = await PostModel.findById(postId);
+            const updatedPost = await PostModel.findByIdAndUpdate(postId, { likeCount: post.likeCount + 1 }, {new: true});
+            return res.status(200).send(updatedPost);
+        }catch(e) {
+            return res.send(e);
+        }
+    }
+}

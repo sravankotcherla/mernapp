@@ -11,6 +11,8 @@ export default function (posts=[], action) {
                 }
                 return item;
             })
+        case 'DELETE':
+            return posts.filter(item => item._id !== action.data._id);
         default:
             return posts
     }

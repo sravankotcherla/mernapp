@@ -4,11 +4,22 @@ import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import moment from 'moment'
+import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import {deletePost, likePost} from '../../../redux/actions'
 
 const Post = (props) => {
     const { post, setCurrId } = props;
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const handleDeletePost = () => {
+        dispatch(deletePost(post._id));
+    }
+
+    const handleLikePost = () => {
+        dispatch(likePost(post._id))
+    }
     return (
         <Card className={classes.card}>
             <CardMedia className={classes.media} image={post.selectedFile} title={ post.selectedFile}/>
@@ -24,20 +35,22 @@ const Post = (props) => {
                 </Button>
             </div>
             <div className={classes.details}>
-                <Typography variant='body2' color='secondary' >{post.tags.map(item=>`#${item} `)} </Typography>
+                <Typography variant='body2' color='secondary' >{post.tags.map(item => `#${item} `)} </Typography>
+                <Typography variant='h5' className={classes.title} gutterBottom={true}>{post.title} </Typography>
+                
                 <CardContent>
-                <Typography variant='h5' className={classes.title} gutter='bottom'>{post.message} </Typography>
+                <Typography variant='body2' color='textSecondary' component='p'>{post.message} </Typography>
                 </CardContent>
                 <div className={classes.cardActionsContainer}>
                 <CardActions className={classes.cardActions}>
-                    <Button size='small' color='primary' >
+                    <Button size='small' color='primary' onClick={handleLikePost} >
                         <ThumbUpAltIcon fontSize='small' />
                         Like
-                        {post.LikeCount}
+                        <span style={{'margin-left': '4px'}}>{post.likeCount}</span>
                     </Button>
                 </CardActions>
                 <CardActions className={classes.cardActions}>
-                    <Button size='small' color='primary' >
+                    <Button size='small' color='primary' onClick={handleDeletePost} >
                         <DeleteIcon fontSize='small' />
                         Delete
                     </Button>
