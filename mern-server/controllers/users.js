@@ -11,7 +11,6 @@ exports.signIn = async(req, res) => {
         res.status(400).json({ message: "Invalid Username" });
     } else  {
         const isValidPassword = await bcrypt.compare(password, existingUser.password)
-        console.log("isPasswordValid", isValidPassword);
         if (!isValidPassword) {
             res.status(400).json({ message: "Invalid Password" });
         } else {
@@ -37,8 +36,7 @@ exports.signUp = async(req, res) => {
             password: hashedPassword ,
         }
         const newUser = await User.create(newUserInfo); 
-        console.log(newUser, newUser.data)
-        const token = jwt.sign({ email: newUser.email, name: newUser.name, password: newUser.password, _id: newUser._id}, 'test', { expiresIn: "1h" })
+        const token = jwt.sign({ email: newUser.email, name: newUser.name, _id: newUser._id}, 'test', { expiresIn: "1h" })
         res.status(200).json({result: {id: newUser._id, name: newUser.name, email: newUser.email}, token})
     }
 }

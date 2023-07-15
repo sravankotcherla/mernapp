@@ -2,7 +2,6 @@ const  mongoose  = require("mongoose");
 const PostModel= require("../models/posts.js")
 
 exports.getPosts = async (req, res) => {
-    console.log(req.headers);
     try {
         const resp = await PostModel.find();
         return res.send(resp)
@@ -25,7 +24,6 @@ exports.createPost =  async(req, res)=>{
 }
 
 exports.updatePost = async (req, res) => {
-    console.log(req.headers);
     const { id: postId } = req.params;
     const post = req.body;
     if (!mongoose.Types.ObjectId.isValid(postId)) {
@@ -70,7 +68,6 @@ exports.deletePostById = async (req, res) => {
 }
 
 exports.likePost = async (req, res) => {
-    console.log(req.headers);
     const { id: postId } = req.params;
     if (!mongoose.Types.ObjectId.isValid(postId)) {
         return res.status(400).send("Invalid post object id");
