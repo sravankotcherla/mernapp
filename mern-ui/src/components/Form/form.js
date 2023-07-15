@@ -95,7 +95,6 @@ const Form = (props) => {
           label="Tags"
           value={postData.tags.reduce((accum,curr)=>{return accum === '' ? accum+curr :( accum+','+curr)}, '')}
           onChange={(e) => {
-            debugger;
             setPostData({ ...postData, tags: e.target.value.split(',') })
           }}
         />

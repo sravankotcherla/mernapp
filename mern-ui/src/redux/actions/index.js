@@ -1,4 +1,5 @@
 import {getPosts, createPost as createThePost, getPost, updatePost as _updatePost, deletePostById, likePostById} from "../../api/posts";
+import { SignInService, SignUpService } from "../../api/users";
 
 
 //Action Creator
@@ -57,6 +58,26 @@ export const likePost = (postId) => async (dispatch) => {
     try {
         const { data } = await likePostById(postId);
         return dispatch({type:'UPDATE', data: data})
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const signUp = (userInfo,navigate) => async (dispatch) => {
+    try {
+        const { data } = await SignUpService(userInfo);
+        dispatch({ type: 'AUTH', data: data })
+        navigate("/")
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const signIn = (userInfo, navigate) => async (dispatch) => {
+    try {
+        const { data } = await SignInService(userInfo);
+        dispatch({ type: 'AUTH', data: data });
+        navigate("/")
     } catch (e) {
         console.log(e);
     }

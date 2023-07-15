@@ -8,10 +8,12 @@ const port = process.env.PORT;
 const connectionString = process.env.DB_STRING;
 
 const { postRoutes } = require("./routes/posts.js")
+const {userRoutes}=require("./routes/users.js")
 
 app.use(express.json());
 app.use(cors());
 app.use("/posts", postRoutes);
+app.use("/users", userRoutes);
 
 app.get('/', (req, res) => {
     res.send('Express App works');

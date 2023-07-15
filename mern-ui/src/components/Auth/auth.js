@@ -16,6 +16,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from 'jwt-decode'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import { signIn, signUp } from "../../redux/actions";
 
 const Auth = () => {
   const classes = useStyles();
@@ -25,19 +26,23 @@ const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData]= useState({firstName:"", lastName:"", email: "", password:"", repeatPassword:""})
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    if (isSignUp) {
+      dispatch(signUp(formData, navigate));
+    } else {
+      dispatch(signIn(formData, navigate));
+    }
   };
 
   const googleSuccess = async (res) => {
-    debugger;
     const decoded_JWT = jwt_decode(res.credential)
     const user = {
       name: decoded_JWT.name,
       email: decoded_JWT.email,
       imageUrl: decoded_JWT.picture,
-      sub: decoded_JWT.sub
+      id: decoded_JWT.sub
     }
     dispatch({ type: 'AUTH', data: { result: user, token: res.credential } });
     navigate("/");

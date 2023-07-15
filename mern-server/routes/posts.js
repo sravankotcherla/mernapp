@@ -10,9 +10,4 @@ router.get("/:id", PostsController.fetchPostById)
 router.delete("/:id", PostsController.deletePostById)
 router.patch("/:id/likePost", PostsController.likePost)
 
-
-
-
-
-
 module.exports.postRoutes=router
